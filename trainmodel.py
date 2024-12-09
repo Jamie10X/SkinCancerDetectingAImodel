@@ -2,7 +2,6 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
@@ -13,9 +12,8 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.keras.optimizers import Adam
 
-# Load dataset
+# Loading dataset
 def load_data(base_dir, metadata_path):
-    """Load metadata and image paths."""
     print("[INFO] Loading metadata...")
     metadata = pd.read_csv(metadata_path)
 
@@ -36,9 +34,8 @@ def load_data(base_dir, metadata_path):
     print("[INFO] Metadata loaded successfully.")
     return metadata
 
-# Preprocess images
+# Preprocessing images
 def preprocess_data(metadata):
-    """Preprocess image data and return numpy arrays."""
     print("[INFO] Preprocessing images...")
     data, labels = [], []
     for _, row in metadata.iterrows():
@@ -53,9 +50,8 @@ def preprocess_data(metadata):
     print("[INFO] Preprocessing complete.")
     return np.array(data, dtype='float32') / 255.0, np.array(labels)
 
-# Build CNN model
+# Building CNN model
 def build_model():
-    """Build the CNN model."""
     print("[INFO] Building CNN model...")
     model = Sequential([
         Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)),
@@ -80,7 +76,6 @@ def build_model():
 
 # Main function
 def main():
-    """Main function to run the pipeline."""
     base_dir = './datasets'
     metadata_path = os.path.join(base_dir, 'HAM10000_metadata.csv')
 
@@ -132,7 +127,7 @@ def main():
     print("\nClassification Report:")
     print(classification_report(y_true, y_pred))
 
-    # Plot training history
+    # Plotting training history
     print("[INFO] Plotting training history...")
     plt.figure(figsize=(12, 4))
     plt.subplot(1, 2, 1)
